@@ -353,6 +353,7 @@ input[type="search"]:focus {
   font-weight: 700;
   margin-top: 2em;
   margin-bottom: 0.75em;
+  scroll-margin-top: 80px;
 }
 .article h2 { font-size: 1.8rem; border-bottom: 1px solid var(--line); padding-bottom: 0.5em; }
 .article h3 { font-size: 1.4rem; }

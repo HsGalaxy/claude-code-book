@@ -349,6 +349,23 @@ function bindEvents() {
     if (index >= 0 && index < flatBook.length - 1) openArticle(flatBook[index + 1].path);
   });
 
+  if (elements.toc) {
+    elements.toc.addEventListener('click', (event) => {
+      const link = event.target.closest('a');
+      if (!link) return;
+      
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        event.preventDefault();
+        const targetId = href.substring(1);
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  }
+
   if (elements.tocToggle) {
     elements.tocToggle.addEventListener('click', () => {
       document.body.classList.add('toc-collapsed');
