@@ -70,6 +70,8 @@ npm run preview
 - 章节目录由 src/bookManifest.js 统一维护
 - 新增章节时，请同步更新 src/bookManifest.js
 
+## 友链
+- 灌注L站喵，https://linux.do/
 
 ## 许可证
 
