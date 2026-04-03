@@ -1,126 +1,165 @@
 <div align="center">
 
-# 解码 Agent Harness
+**[English](en/README.md)** | **中文**
 
+# 解码 Agent Harness
 
 ### [在线阅读 →](https://gugugugun.github.io/claude-code-book)
 
+<br/>
+
+当所有人都在教你怎么 **用** AI Agent——**这本书带你拆开它。**
+
+<br/>
+
+[![在线阅读](https://img.shields.io/badge/在线阅读-gugugugun.github.io-4f9da6?style=for-the-badge)](https://gugugugun.github.io/claude-code-book)
+
+[![GitHub Stars](https://img.shields.io/github/stars/GuGuGuGun/claude-code-book?style=flat-square&logo=github&label=Stars)](https://github.com/GuGuGuGun/claude-code-book/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/GuGuGuGun/claude-code-book?style=flat-square&logo=github&label=Forks)](https://github.com/GuGuGuGun/claude-code-book/network/members)
+[![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey?style=flat-square)](LICENSE)
+[![中文](https://img.shields.io/badge/语言-中文-red?style=flat-square)](./)
+[![English](https://img.shields.io/badge/lang-English-blue?style=flat-square)](en/README.md)
+[![Last Commit](https://img.shields.io/github/last-commit/GuGuGuGun/claude-code-book?style=flat-square)](https://github.com/GuGuGuGun/claude-code-book/commits/main)
+
+<br/>
+
+<img width="2880" height="1558" alt="Decoding Agent Harness — A Deep Architectural Analysis of Claude Code" src="https://github.com/user-attachments/assets/39efa7d4-4521-444e-a222-fd0acb756e51" />
+
 </div>
 
+---
 
-
-## 这本书讲什么
-
-当所有人都在教你怎么**用** AI Agent，这本书带你**拆开**它。
-
-对话循环如何驱动？工具权限为何是四阶段管线？上下文压缩怎样在 token 预算内运转？子智能体如何通过 Fork 继承父级上下文？
-
-读懂 Claude Code 的设计决策，你就拥有了一套可迁移到任何 Agent 框架的心智模型。
-
-> **⚠️ 声明**
-> 本书基于对 Claude Code 公开文档和产品行为的架构分析编写，**未引用、未使用任何未公开或未授权的源码**。Claude Code 为 Anthropic PBC 产品，本书不隶属于、未获授权于、也不代表 Anthropic。
+> **对话循环如何驱动？工具权限为何是四阶段管线？上下文压缩怎样在 token 预算内运转？子智能体如何通过 Fork 继承父级上下文？**
+>
+> 读懂 Claude Code 的设计决策，你就拥有了一套**可迁移到任何 Agent 框架**的心智模型。
 
 本项目基于原仓库 [lintsinghua/claude-code-book](https://github.com/lintsinghua/claude-code-book) 进行二次开发，目标是提供更友好的网页阅读体验。
 
-## 为什么值得读
+## 这本书有什么不同
 
-<table>
-<tr>
-<td width="33%" align="center"><strong>架构代表性</strong></td>
-<td width="33%" align="center"><strong>工程决策可追溯</strong></td>
-<td width="33%" align="center"><strong>认知可迁移</strong></td>
-</tr>
-<tr>
-<td>涵盖 Agent Harness 全部核心子系统——工具类型、权限管线、上下文压缩、MCP 集成、子智能体调度</td>
-<td>为什么用异步生成器而非回调？为什么权限是四阶段管线而非黑白名单？每个决策背后都是真实生产场景的洞察</td>
-<td>每章提炼通用设计模式，无论你用 LangChain、AutoGen 还是从零构建</td>
-</tr>
-</table>
+**不做使用教程，不列 Prompt 技巧。**
+
+市面上充斥着"如何写好 Prompt"和"如何调用 Agent API"的指南。但如果你想知道一个生产级 Agent 系统的**骨架**是怎么搭的——几乎没有资料可查。这本书填补了这个空白。
+
+|  | 特色 | 说明 |
+|:-:|------|------|
+| | **架构分析而非 API 文档** | 不讲"怎么调用"，讲"为什么这样设计"——追溯动机、分析权衡、指出反模式 |
+| | **设计哲学而非使用教程** | 从异步生成器到断路器模式，每章提炼可迁移的设计原则 |
+| | **可迁移的认知模型** | 无论你用 LangChain、AutoGen、CrewAI 还是从零构建，书中 139 张架构图直接复用 |
+
+<details>
+<summary><b>书中的数据一览</b></summary>
+
+| 指标 | 数量 |
+|------|------|
+| 全书字数 | 42 万字（中文）/ 75K+ words（English） |
+| 正文章节 | 15 章 + 4 篇附录 |
+| Mermaid 架构图/流程图/状态机 | 139 张 |
+| 覆盖核心子系统 | 工具系统、权限管线、上下文压缩、记忆系统、钩子系统、子智能体调度、MCP 集成、技能插件、流式架构、Plan 模式 |
+| 分析的设计决策 | 50+ 个"为什么这样设计" |
+| 术语条目（中英对照） | 100 条 |
+| 功能标志 | 89 个 |
+| 注册工具 | 50+ 个 |
+
+</details>
+
+> **声明：** 本书基于对 Claude Code 公开文档和产品行为的架构分析编写，未引用、未使用任何未公开或未授权的源码。Claude Code 为 Anthropic PBC 产品，本书不隶属于、未获授权于、也不代表 Anthropic。
+
+---
+
+## 快速导航
+
+> **时间紧张？** 01 → 02 → 04 → 15，拿到核心认知和动手能力就够用
+>
+> **有经验？** 直接读 Part 2 + Part 3，遇到概念缺口回溯 Part 1
+>
+> **系统学习？** 从头到尾，每章做练习，最后 Ch15 构建自己的 Harness（约 2–3 周）
+>
+> **查资料？** 直接翻 [附录 A](#appendix--参考资料速查)（模块定位）/ [B](#appendix--参考资料速查)（工具）/ [C](#appendix--参考资料速查)（功能标志）/ [D](#appendix--参考资料速查)（术语）
 
 ---
 
 ## 目录
 
-### 第一部分：基础篇 — 建立心智模型
+### Part 1. 基础篇 — 建立心智模型
 
-| # | 章节 | 一句话 |
-|:-:|------|-------|
-| 01 | [智能体编程的新范式](第一部分-基础篇/01-智能体编程的新范式.md) | 从聊天到工具调用，范式如何转移 |
-| 02 | [对话循环 — Agent 的心跳](第一部分-基础篇/02-对话循环-Agent的心跳.md) | 异步生成器驱动的永动主循环 |
-| 03 | [工具系统 — Agent 的双手](第一部分-基础篇/03-工具系统-Agent的双手.md) | 45+ 工具的注册、过滤与并发调度 |
-| 04 | [权限管线 — Agent 的护栏](第一部分-基础篇/04-权限管线-Agent的护栏.md) | 四阶段安全管线与权限模式谱系 |
+> 理解 Agent 编程的范式转移，建立对 Agent Harness 的整体认知框架。
 
-### 第二部分：核心系统篇 — 深入子系统
+| # | 章节 | 核心内容 |
+|:-:|------|---------|
+| 01 | [智能体编程的新范式](第一部分-基础篇/01-智能体编程的新范式.md) | Copilot → Claude Code 演进；Agent Harness 五大设计原则；Bun + React/Ink + Zod v4 技术栈 |
+| 02 | [对话循环 — Agent 的心跳](第一部分-基础篇/02-对话循环-Agent的心跳.md) | `while(true)` 异步生成器主循环；五种 yield 事件；十种终止原因；`QueryDeps` 依赖注入 |
+| 03 | [工具系统 — Agent 的双手](第一部分-基础篇/03-工具系统-Agent的双手.md) | `Tool<I,O,P>` 五要素协议；`buildTool` 故障安全工厂；45+ 工具 × 12 类；并发分区贪心算法 |
+| 04 | [权限管线 — Agent 的护栏](第一部分-基础篇/04-权限管线-Agent的护栏.md) | 四阶段管线；五种权限模式谱系；Bash 规则匹配；推测性分类器 2 秒 Promise.race |
 
-| # | 章节 | 一句话 |
-|:-:|------|-------|
-| 05 | [设置与配置 — Agent 的基因](第二部分-核心系统篇/05-设置与配置-Agent的基因.md) | 六层配置优先级与供应链攻击防御 |
-| 06 | [记忆系统 — Agent 的长期记忆](第二部分-核心系统篇/06-记忆系统-Agent的长期记忆.md) | 持久化、索引、自动提取与跨会话保持 |
-| 07 | [上下文管理 — Agent 的工作记忆](第二部分-核心系统篇/07-上下文管理-Agent的工作记忆.md) | 四级渐进压缩与 token 预算管理 |
-| 08 | [钩子系统 — Agent 的生命周期扩展点](第二部分-核心系统篇/08-钩子系统-Agent的生命周期扩展点.md) | 26 个生命周期事件与安全边界 |
+### Part 2. 核心系统篇 — 深入子系统
 
-### 第三部分：高级模式篇 — Agent 的组合与扩展
+> 拆解 Agent Harness 的四大核心子系统——配置、记忆、上下文、钩子。
 
-| # | 章节 | 一句话 |
-|:-:|------|-------|
-| 09 | [子智能体与 Fork 模式](第三部分-高级模式篇/09-子智能体与Fork模式.md) | 字节级上下文继承与并行子任务 |
-| 10 | [协调器模式 — 多智能体编排](第三部分-高级模式篇/10-协调器模式-多智能体编排.md) | Coordinator-Worker 架构与 Team 机制 |
-| 11 | [技能系统与插件架构](第三部分-高级模式篇/11-技能系统与插件架构.md) | 零配置可用、可配置强大的技能协议 |
-| 12 | [MCP 集成与外部协议](第三部分-高级模式篇/12-MCP集成与外部协议.md) | Model Context Protocol 与协议桥接 |
+| # | 章节 | 核心内容 |
+|:-:|------|---------|
+| 05 | [设置与配置 — Agent 的基因](第二部分-核心系统篇/05-设置与配置-Agent的基因.md) | 六层配置优先级链；合并规则；安全边界与供应链攻击防御；双层功能门控 |
+| 06 | [记忆系统 — Agent 的长期记忆](第二部分-核心系统篇/06-记忆系统-Agent的长期记忆.md) | 四种封闭式记忆类型；"只保存无法推导的信息"；MEMORY.md 索引；Fork 记忆机制 |
+| 07 | [上下文管理 — Agent 的工作记忆](第二部分-核心系统篇/07-上下文管理-Agent的工作记忆.md) | 有效窗口公式；四级渐进压缩（Snip→MicroCompact→Collapse→AutoCompact）；断路器模式 |
+| 08 | [钩子系统 — Agent 的生命周期扩展点](第二部分-核心系统篇/08-钩子系统-Agent的生命周期扩展点.md) | 五种 Hook 类型；26 个生命周期事件；JSON 响应协议；六层优先级；三层安全机制 |
 
-### 第四部分：工程实践篇 — 从原理到构建
+### Part 3. 高级模式篇 — Agent 的组合与扩展
 
-| # | 章节 | 一句话 |
-|:-:|------|-------|
-| 13 | [流式架构与性能优化](第四部分-工程实践篇/13-流式架构与性能优化.md) | 并行预取、惰性加载、缓存共享 |
-| 14 | [Plan 模式与结构化工作流](第四部分-工程实践篇/14-Plan模式与结构化工作流.md) | 计划与执行分离、定时触发 |
-| 15 | [构建你自己的 Agent Harness](第四部分-工程实践篇/15-构建你自己的Agent-Harness.md) | 六步从零实现，融会贯通全书 |
+> 探索 Agent 如何组合、编排和扩展——从子智能体到 MCP 协议桥接。
 
-### 附录
+| # | 章节 | 核心内容 |
+|:-:|------|---------|
+| 09 | [子智能体与 Fork 模式](第三部分-高级模式篇/09-子智能体与Fork模式.md) | 三种 Agent 来源；四种内置 Agent；Fork 字节级上下文继承；递归 Fork 防护 |
+| 10 | [协调器模式 — 多智能体编排](第三部分-高级模式篇/10-协调器模式-多智能体编排.md) | Coordinator-Worker 双重门控；"只编排不执行"约束；四种寻址模式；四阶段工作流 |
+| 11 | [技能系统与插件架构](第三部分-高级模式篇/11-技能系统与插件架构.md) | 11 个核心技能；SKILL.md frontmatter；三级参数替换；分层加载；插件缓存 |
+| 12 | [MCP 集成与外部协议](第三部分-高级模式篇/12-MCP集成与外部协议.md) | 8 种传输协议；五态连接管理；三段式工具命名；Bridge 双向通信系统 |
 
-| 附录 | 内容 |
-|:----:|------|
-| [A](附录/A-源码导航地图.md) | 架构导航地图 — 模块依赖与数据流 |
-| [B](附录/B-工具完整清单.md) | 工具完整清单 — 50+ 工具速查 |
-| [C](附录/C-功能标志速查表.md) | 功能标志速查表 — 89 个 Feature Flag |
-| [D](附录/D-术语表.md) | 术语表 — 100 条中英对照 |
+### Part 4. 工程实践篇 — 从原理到构建
 
----
+> 性能优化的工程细节，以及从零构建一个完整 Harness 的实战路线图。
 
-## 阅读路径
+| # | 章节 | 核心内容 |
+|:-:|------|---------|
+| 13 | [流式架构与性能优化](第四部分-工程实践篇/13-流式架构与性能优化.md) | QueryEngine 生命周期管理；并发控制；启动优化 160ms→65ms（-59%）；惰性加载策略 |
+| 14 | [Plan 模式与结构化工作流](第四部分-工程实践篇/14-Plan模式与结构化工作流.md) | "先想后做"哲学；计划文件三层恢复策略；本地调度与远程触发 |
+| 15 | [构建你自己的 Agent Harness](第四部分-工程实践篇/15-构建你自己的Agent-Harness.md) | 六步实现路线图；循环依赖解决方案；四层可观测性体系；安全威胁模型 |
 
-```
-                        ┌──────────────────────────────────────────────┐
-  ⏱ 时间紧张？          │  Ch1 → Ch2 → Ch4 → Ch15                      │
-                        │  心智模型 + 核心机制 + 动手构建                 │
-                        └──────────────────────────────────────────────┘
-                        ┌──────────────────────────────────────────────┐
-  🏗 有经验的架构师？    │  第二部分(核心系统) → 第三部分(高级模式)         │
-                        │  遇到概念缺口回溯第一部分                       │
-                        └──────────────────────────────────────────────┘
-                        ┌──────────────────────────────────────────────┐
-  📖 系统学习？          │  顺序阅读 → 完成每章实战练习 → Ch15 动手构建    │
-                        │  预计需要 2-3 周深度阅读                        │
-                        └──────────────────────────────────────────────┘
-```
+### Appendix — 参考资料速查
+
+| | 内容 |
+|:-:|------|
+| [A](附录/A-源码导航地图.md) | **架构导航地图** — 16 个核心模块、依赖树、6 条数据流路径、四层架构、10 种设计模式 |
+| [B](附录/B-工具完整清单.md) | **工具完整清单** — 50+ 工具 × 12 类，readOnly/destructive/concurrencySafe 属性 |
+| [C](附录/C-功能标志速查表.md) | **功能标志速查表** — 89 个 Flag × 13 类，编译时/运行时类型，依赖关系图 |
+| [D](附录/D-术语表.md) | **术语表** — 100 条中英对照术语，含交叉引用和章节定位 |
 
 ---
 
 ## 适合谁
 
-| 读者 | 你将收获 |
-|------|---------|
-| 想构建 Agent 的 **架构师** | 完整的设计空间地图与工程权衡分析 |
-| 不满足于调 API 的 **高级工程师** | 工具调用、流式处理、权限管控的底层机制 |
-| 对 Agent 工程感兴趣的 **研究者** | 从实现角度理解 Agent 系统的运作方式 |
-| 希望最大化利用 Claude Code 的 **实践者** | 理解设计意图，用得更准、调得更深 |
+|  | 读者 | 收获 |
+|:-:|------|------|
+| | **架构师** | 完整的 Agent 设计空间地图和工程权衡分析 |
+| | **高级工程师** | 工具调用、流式处理、权限管控的底层机制 |
+| | **研究者** | 可发表论文级别的 Agent 系统实现分析 |
+| | **Claude Code 用户** | 理解设计意图，最大化利用其能力 |
 
+
+## 背景
+
+2026 年 3 月 31 日，安全研究员 [Chaofan Shou (@Fried_rice)](https://x.com/Fried_rice) 发现 npm registry 中的 `@anthropic-ai/claude-code` 包存在构建配置失误，source map 文件引用了未设访问控制的 Cloudflare R2 存储桶。披露推文获得超 1700 万次浏览，引发了技术社区对 Agent 架构的空前讨论。
+
+这本书的诞生正是受到这场讨论的启发——当 Agent 架构成为热门话题，我们意识到需要一本系统性的书来讲解 Agent Harness 的设计原理。
+
+---
 
 ## 约定
 
 - 中文写作，技术术语保留英文原文（如 *StreamingToolExecutor*、*Feature Flag*）
 - 每章结构：**学习目标 → 核心概念 → 架构图 → 实战练习 → 关键要点**
 - 示例代码为说明设计模式的示意代码，非产品源码
+
+## 网站阅读体验
 
 - 章节树导航：按书籍结构展示全部章节
 - Markdown 渲染：实时加载并渲染各章节内容
@@ -141,6 +180,7 @@
 ├─ 第三部分-高级模式篇/
 ├─ 第四部分-工程实践篇/
 ├─ 附录/
+├─ en/
 ├─ index.html
 ├─ vite.config.js
 └─ package.json
@@ -180,18 +220,32 @@ npm run preview
 
 ## 贡献
 
-欢迎提交 Issue 和 Pull Request：修正技术错误、补充实战案例、改进章节结构。
+欢迎 Issue 和 PR - 修正技术错误、补充实战案例、改进章节结构。
 
 ## 致谢
 
 [Linux.Do](https://linux.do/) 社区
 [lintsinghua/claude-code-book](https://github.com/lintsinghua/claude-code-book)
-[![CC BY-NC-SA 4.0](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+[GuGuGuGun/claude-code-book](https://github.com/GuGuGuGun/claude-code-book)
 
+---
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=GuGuGuGun/claude-code-book&type=Date)](https://star-history.com/#GuGuGuGun/claude-code-book&Date)
+
+---
 
 ## 友链
+
 - 灌注L站喵，https://linux.do/
 
 ## 许可证
 
-书籍内容与相关版权遵循原项目及其许可证约定；如需转载或二次发布，请先阅读并遵守原仓库许可条款。
+<p align="center">
+  <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+    <img src="https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey" alt="CC BY-NC-SA 4.0" />
+  </a>
+  <br/><br/>
+  书籍内容与相关版权遵循原项目及其许可证约定；可自由分享和改编，但须署名、非商业使用、并以相同协议共享。
+</p>
