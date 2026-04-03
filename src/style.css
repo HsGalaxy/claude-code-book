@@ -327,6 +327,22 @@ input[type="search"]:focus {
   align-items: center;
   gap: 6px;
 }
+
+.markdown-body pre.mermaid {
+  background: var(--surface-solid);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  overflow-x: auto;
+}
+
+.markdown-body pre.mermaid svg {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
 .btn-secondary:disabled {
   opacity: 0.5;
   cursor: not-allowed;

@@ -19,6 +19,31 @@ marked.setOptions({
   breaks: false
 });
 
+function escapeHtml(text) {
+  return String(text)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+marked.use({
+  renderer: {
+    code(token, infostring) {
+      const isTokenObject = token && typeof token === 'object';
+      const code = isTokenObject ? token.text : token;
+      const language = (isTokenObject ? token.lang : infostring) || '';
+
+      if (String(language).trim().toLowerCase() === 'mermaid') {
+        return `<pre class="mermaid">${escapeHtml(code)}</pre>`;
+      }
+
+      return false;
+    }
+  }
+});
+
 const app = document.querySelector('#app');
 
 app.innerHTML = `
@@ -122,6 +147,15 @@ const elements = {
 };
 
 let currentPath = null;
+let mermaidModulePromise = null;
+
+async function getMermaid() {
+  if (!mermaidModulePromise) {
+    mermaidModulePromise = import('mermaid').then((module) => module.default);
+  }
+
+  return mermaidModulePromise;
+}
 
 function isMobileViewport() {
   return window.matchMedia('(max-width: 960px)').matches;
@@ -206,6 +240,20 @@ function updateReadingProgress() {
   elements.progressBar.style.transform = `scaleX(${ratio})`;
 }
 
+async function renderMermaidDiagrams() {
+  const nodes = elements.article.querySelectorAll('pre.mermaid');
+  if (!nodes.length) return;
+
+  const mermaid = await getMermaid();
+  mermaid.initialize({
+    startOnLoad: false,
+    securityLevel: 'strict',
+    theme: 'neutral'
+  });
+
+  await mermaid.run({ nodes });
+}
+
 function getCurrentIndex() {
   return flatBook.findIndex((item) => item.path === currentPath);
 }
@@ -285,6 +333,7 @@ async function openArticle(path, fromHistory = false) {
     const rawHtml = marked.parse(markdown);
     const safeHtml = DOMPurify.sanitize(rawHtml);
     elements.article.innerHTML = safeHtml;
+    await renderMermaidDiagrams();
     renderToc();
     renderNav(elements.searchInput.value);
     updatePager();
