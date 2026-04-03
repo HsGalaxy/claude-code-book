@@ -252,6 +252,17 @@ async function renderMermaidDiagrams() {
   });
 
   await mermaid.run({ nodes });
+
+  // Mermaid 默认会写入行内 max-width，容易让部分图在宽屏下看起来过小。
+  // 这里统一让图表至少铺满容器宽度，同时保留容器横向滚动能力。
+  nodes.forEach((node) => {
+    const svg = node.querySelector('svg');
+    if (!svg) return;
+
+    svg.style.maxWidth = 'none';
+    svg.style.width = '100%';
+    svg.style.height = 'auto';
+  });
 }
 
 function getCurrentIndex() {
